@@ -8,11 +8,15 @@ export default function RecipeModal({ recipe, isOpen, onClose }) {
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <div className="relative">
-                <img
-                    src={recipe.image}
-                    alt={recipe.name}
-                    className="w-full h-64 object-cover rounded-t-xl"
-                />
+                {recipe.image ? (
+                    <img
+                        src={recipe.image}
+                        alt={recipe.name}
+                        className="w-full h-64 object-cover rounded-t-xl"
+                    />
+                ) : (
+                    <div className="w-full h-24 bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 rounded-t-xl" />
+                )}
                 <button
                     onClick={onClose}
                     className="absolute top-4 left-4 bg-white rounded-full p-2 hover:bg-gray-100"

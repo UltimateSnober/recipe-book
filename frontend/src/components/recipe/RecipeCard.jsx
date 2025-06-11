@@ -5,24 +5,39 @@ export default function RecipeCard({ recipe, onToggleFavorite, onViewRecipe }) {
     return (
         <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
             <div className="relative">
-                <img
-                    src={recipe.image}
-                    alt={recipe.name}
-                    className="w-full h-48 object-cover"
-                />
-                <button
-                    onClick={() => onToggleFavorite(recipe.id)}
-                    className={`absolute top-3 right-3 p-2 rounded-full ${recipe.isFavorite ? 'bg-red-500 text-white' : 'bg-white text-gray-600'
-                        } hover:scale-110 transition-transform`}
-                >
-                    <Heart className={`w-5 h-5 ${recipe.isFavorite ? 'fill-current' : ''}`} />
-                </button>
-                <div className="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded-lg text-sm">
-                    <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        {recipe.rating}
+                {recipe.image && (
+                    <img
+                        src={recipe.image}
+                        alt={recipe.name}
+                        className="w-full h-48 object-cover"
+                    />
+                )}
+                {recipe.image ? (
+                    <button
+                        onClick={() => onToggleFavorite(recipe.id)}
+                        className={`absolute top-3 right-3 p-2 rounded-full ${recipe.isFavorite ? 'bg-red-500 text-white' : 'bg-white text-gray-600'
+                            } hover:scale-110 transition-transform`}
+                    >
+                        <Heart className={`w-5 h-5 ${recipe.isFavorite ? 'fill-current' : ''}`} />
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => onToggleFavorite(recipe.id)}
+                        className={`p-2 rounded-full float-left ml-2 mt-1 ${recipe.isFavorite ? 'bg-red-500 text-white' : 'bg-white text-gray-600'
+                            } hover:scale-110 transition-transform`}
+                        style={{ position: 'static' }}
+                    >
+                        <Heart className={`w-5 h-5 ${recipe.isFavorite ? 'fill-current' : ''}`} />
+                    </button>
+                )}
+                {recipe.image && (
+                    <div className="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded-lg text-sm">
+                        <div className="flex items-center gap-1">
+                            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                            {recipe.rating}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
             <div className="p-4">
@@ -45,6 +60,13 @@ export default function RecipeCard({ recipe, onToggleFavorite, onViewRecipe }) {
                         {recipe.difficulty}
                     </span>
                 </div>
+
+                {!recipe.image && (
+                    <div className="flex items-center gap-2 mb-2">
+                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        <span className="text-gray-700 font-medium">{recipe.rating}</span>
+                    </div>
+                )}
 
                 <button
                     onClick={() => onViewRecipe(recipe)}
