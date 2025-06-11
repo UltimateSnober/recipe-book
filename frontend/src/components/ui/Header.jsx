@@ -6,8 +6,12 @@ export default function Header({ onAddRecipe, searchTerm, setSearchTerm }) {
         <header className="bg-white shadow-lg border-b-4 border-orange-500">
             <div className="max-w-7xl mx-auto px-4 py-6">
                 <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                        📚 كتاب الوصفات
+                    <h1
+                        className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent flex items-center gap-2 leading-normal"
+                        dir="rtl"
+                    >
+                        <img src="/recipe-book.png" alt="شعار كتاب الوصفات" className="w-10 h-10" />
+                        <span>كتاب الوصفات</span>
                     </h1>
                     <button
                         onClick={onAddRecipe}
