@@ -8,6 +8,7 @@ from .serializers import UserSignupSerializer, UserSigninSerializer
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
 
 
 class SignupView(APIView):
@@ -52,3 +53,18 @@ class SignoutView(APIView):
             return Response({'message': 'Signed out successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        data = {
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "email": user.email,
+            "phone_number": str(user.phone_number),
+            "date_joined": user.date_joined,
+        }
+        return Response(data, status=status.HTTP_200_OK)
