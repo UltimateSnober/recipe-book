@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from '../components/Sidebar';
+import SideBar from '../components/SideBar';
 import DashboardHeader from '../components/DashboardHeader';
 import SectionHeader from '../components/SectionHeader';
 import RecipeGrid from '../components/RecipeGrid';
@@ -74,7 +74,7 @@ export default function DashboardPage({ onNavigate }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState('recipes');
     const [activeFilters, setActiveFilters] = useState([]);
-    const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+    const [showMobileSideBar, setShowMobileSideBar] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     const handleProfileClick = () => {
@@ -95,8 +95,8 @@ export default function DashboardPage({ onNavigate }) {
         setSelectedCategory(category);
     };
 
-    const toggleMobileSidebar = () => {
-        setShowMobileSidebar(!showMobileSidebar);
+    const toggleMobileSideBar = () => {
+        setShowMobileSideBar(!showMobileSideBar);
     };
 
     const handleViewDetails = (recipe) => {
@@ -124,16 +124,16 @@ export default function DashboardPage({ onNavigate }) {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 flex flex-col md:flex-row" dir="rtl">
-            {/* Desktop Sidebar - hidden on mobile */}
+            {/* Desktop SideBar - hidden on mobile */}
             <div className="hidden md:block">
-                <Sidebar onNavigate={onNavigate} activeTab={activeTab} />
+                <SideBar onNavigate={onNavigate} activeTab={activeTab} />
             </div>
 
-            {/* Mobile Sidebar - shown when toggled */}
-            <div className={`fixed inset-0 z-40 md:hidden transition-opacity duration-300 ${showMobileSidebar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-                <div className="absolute inset-0 bg-black/50" onClick={toggleMobileSidebar}></div>
-                <div className={`absolute top-0 right-0 bottom-0 w-64 bg-white transform transition-transform duration-300 ease-in-out ${showMobileSidebar ? 'translate-x-0' : 'translate-x-full'}`}>
-                    <Sidebar onNavigate={onNavigate} activeTab={activeTab} isMobile={true} onClose={toggleMobileSidebar} />
+            {/* Mobile SideBar - shown when toggled */}
+            <div className={`fixed inset-0 z-40 md:hidden transition-opacity duration-300 ${showMobileSideBar ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                <div className="absolute inset-0 bg-black/50" onClick={toggleMobileSideBar}></div>
+                <div className={`absolute top-0 right-0 bottom-0 w-64 bg-white transform transition-transform duration-300 ease-in-out ${showMobileSideBar ? 'translate-x-0' : 'translate-x-full'}`}>
+                    <SideBar onNavigate={onNavigate} activeTab={activeTab} isMobile={true} onClose={toggleMobileSideBar} />
                 </div>
             </div>
 
@@ -143,7 +143,7 @@ export default function DashboardPage({ onNavigate }) {
                     searchQuery={searchQuery}
                     onSearchChange={setSearchQuery}
                     onFilterChange={handleFilterChange}
-                    onMenuClick={toggleMobileSidebar}
+                    onMenuClick={toggleMobileSideBar}
                 />
                 <section className="flex-1 p-4 md:p-8">
                     <SectionHeader
