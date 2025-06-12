@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChefHat } from 'lucide-react';
 import FormInput from '../components/FormInput';
 import FormError from '../components/FormError';
+import FloatingRecipeCards from '../components/FloatingRecipeCards';
 
 export default function SignInPage({ onNavigate }) {
     const [email, setEmail] = useState('');
@@ -20,7 +21,8 @@ export default function SignInPage({ onNavigate }) {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center px-4" dir="rtl">
+        <div className="relative min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center px-4" dir="rtl">
+            <FloatingRecipeCards />
             <div className="max-w-md w-full">
                 <div className="bg-white rounded-xl shadow-lg p-8">
                     <div className="text-center mb-8">
