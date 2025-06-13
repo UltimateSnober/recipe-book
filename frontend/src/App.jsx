@@ -3,6 +3,8 @@ import LandingPage from './pages/LandingPage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import DashboardPage from './pages/DashboardPage';
+import FavoritesPage from './pages/FavoritesPage';
+import ProfilePage from './pages/ProfilePage'; // Import ProfilePage
 
 function AppRoutes() {
   const navigate = useNavigate();
@@ -12,6 +14,8 @@ function AppRoutes() {
     else if (page === 'register') navigate('/signup');
     else if (page === 'landing') navigate('/');
     else if (page === 'dashboard') navigate('/dashboard');
+    else if (page === 'favorites') navigate('/favorites');
+    else if (page === 'profile') navigate('/profile'); // Handle profile navigation
     // add more navigation as needed
   };
 
@@ -21,6 +25,8 @@ function AppRoutes() {
       <Route path="/signin" element={<SignInPage onNavigate={handleNavigate} />} />
       <Route path="/signup" element={<SignUpPage onNavigate={handleNavigate} />} />
       <Route path="/dashboard" element={<DashboardPage onNavigate={handleNavigate} />} />
+      <Route path="/favorites" element={<FavoritesPage onNavigate={handleNavigate} />} />
+      <Route path="/profile" element={<ProfilePage onNavigate={handleNavigate} />} /> {/* Add ProfilePage route */}
     </Routes>
   );
 }

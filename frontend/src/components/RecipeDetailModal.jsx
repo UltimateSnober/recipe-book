@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Clock, Users, Medal, ChefHat, Heart, Printer, Share2, Edit, X, Star } from 'lucide-react';
 
-export default function RecipeDetailModal({ recipe, isOpen, onClose, onEdit }) {
+export default function RecipeDetailModal({ recipe, isOpen, onClose, onEdit, onToggleFavorite }) {
     const [activeTab, setActiveTab] = useState('instructions');
     const modalRef = useRef(null);
 
@@ -79,7 +79,10 @@ export default function RecipeDetailModal({ recipe, isOpen, onClose, onEdit }) {
                                 <button onClick={() => onEdit(recipe)} className="bg-white/90 p-1.5 rounded-full text-gray-700 hover:text-red-600">
                                     <Edit className="h-4 w-4" />
                                 </button>
-                                <button className="bg-white/90 p-1.5 rounded-full text-gray-700 hover:text-red-600">
+                                <button
+                                    onClick={(e) => onToggleFavorite && onToggleFavorite(e)}
+                                    className="bg-white/90 p-1.5 rounded-full text-gray-700 hover:text-red-600"
+                                >
                                     <Heart className={`h-4 w-4 ${recipe.favorite ? 'text-red-600 fill-red-600' : ''}`} />
                                 </button>
                             </div>
@@ -127,8 +130,8 @@ export default function RecipeDetailModal({ recipe, isOpen, onClose, onEdit }) {
                         <button
                             onClick={() => setActiveTab('instructions')}
                             className={`px-4 py-2 font-medium text-sm transition-colors ${activeTab === 'instructions'
-                                    ? 'text-red-600 border-b-2 border-red-600'
-                                    : 'text-gray-600 hover:text-gray-900'
+                                ? 'text-red-600 border-b-2 border-red-600'
+                                : 'text-gray-600 hover:text-gray-900'
                                 }`}
                         >
                             طريقة التحضير
@@ -136,8 +139,8 @@ export default function RecipeDetailModal({ recipe, isOpen, onClose, onEdit }) {
                         <button
                             onClick={() => setActiveTab('ingredients')}
                             className={`px-4 py-2 font-medium text-sm transition-colors ${activeTab === 'ingredients'
-                                    ? 'text-red-600 border-b-2 border-red-600'
-                                    : 'text-gray-600 hover:text-gray-900'
+                                ? 'text-red-600 border-b-2 border-red-600'
+                                : 'text-gray-600 hover:text-gray-900'
                                 }`}
                         >
                             المكونات
@@ -145,8 +148,8 @@ export default function RecipeDetailModal({ recipe, isOpen, onClose, onEdit }) {
                         <button
                             onClick={() => setActiveTab('nutrition')}
                             className={`px-4 py-2 font-medium text-sm transition-colors ${activeTab === 'nutrition'
-                                    ? 'text-red-600 border-b-2 border-red-600'
-                                    : 'text-gray-600 hover:text-gray-900'
+                                ? 'text-red-600 border-b-2 border-red-600'
+                                : 'text-gray-600 hover:text-gray-900'
                                 }`}
                         >
                             القيمة الغذائية

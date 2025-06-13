@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Clock, Star, Heart, Eye, MoreVertical, Edit, Trash, Copy } from 'lucide-react';
 import RecipeDetailModal from './RecipeDetailModal';
 
-export default function RecipeCard({ recipe, onEditRecipe, onDeleteRecipe, onDuplicate }) {
+export default function RecipeCard({ recipe, onEditRecipe, onDeleteRecipe, onDuplicate, onToggleFavorite }) {
     const [showMenu, setShowMenu] = useState(false);
     const [showDetailModal, setShowDetailModal] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(recipe.favorite || false);
     const menuRef = useRef(null);
 
     // Close menu when clicking outside
@@ -21,9 +22,20 @@ export default function RecipeCard({ recipe, onEditRecipe, onDeleteRecipe, onDup
         };
     }, []);
 
+    const handleToggleFavorite = (e) => {
+        e.stopPropagation();
+        const newFavoriteState = !isFavorite;
+        setIsFavorite(newFavoriteState);
+
+        // If parent component provided the handler, call it
+        if (onToggleFavorite) {
+            onToggleFavorite(recipe, newFavoriteState);
+        }
+    };
+
     return (
         <>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow relative">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow relative group">
                 {/* Options Menu */}
                 <div className="absolute top-2 left-2 z-10" ref={menuRef}>
                     <button
@@ -54,11 +66,18 @@ export default function RecipeCard({ recipe, onEditRecipe, onDeleteRecipe, onDup
                                 className="flex w-full items-center px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"
                             >
                                 <Trash className="h-4 w-4 ml-2" />
-                                حذف الوصفة
+                                {isFavorite ? 'إزالة من المفضلة' : 'حذف الوصفة'}
                             </button>
                         </div>
                     )}
                 </div>
+
+                {/* Favorite Badge */}
+                {isFavorite && (
+                    <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full shadow-sm">
+                        مفضلة
+                    </div>
+                )}
 
                 {/* Recipe Image with Category */}
                 <div
@@ -95,13 +114,11 @@ export default function RecipeCard({ recipe, onEditRecipe, onDeleteRecipe, onDup
                         </button>
                         <div className="flex items-center space-x-reverse space-x-2">
                             <button
-                                className="text-gray-400 hover:text-red-500"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    console.log('Toggle favorite');
-                                }}
+                                className={`transition-colors duration-300 ${isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
+                                onClick={handleToggleFavorite}
+                                aria-label={isFavorite ? 'إزالة من المفضلة' : 'أضف للمفضلة'}
                             >
-                                <Heart className={`h-4 w-4 ${recipe.favorite ? 'text-red-500 fill-red-500' : ''}`} />
+                                <Heart className={`h-4 w-4 ${isFavorite ? 'fill-red-500' : ''}`} />
                             </button>
                             <div className="flex items-center text-gray-500 text-xs">
                                 <Eye className="h-3 w-3 md:h-4 md:w-4 ml-1" />
@@ -114,10 +131,14 @@ export default function RecipeCard({ recipe, onEditRecipe, onDeleteRecipe, onDup
 
             {/* Recipe Detail Modal */}
             <RecipeDetailModal
-                recipe={recipe}
+                recipe={{ ...recipe, favorite: isFavorite }} // Make sure we send the latest favorite state
                 isOpen={showDetailModal}
                 onClose={() => setShowDetailModal(false)}
                 onEdit={onEditRecipe}
+                onToggleFavorite={(e) => {
+                    handleToggleFavorite(e || { stopPropagation: () => { } });
+                    // No need to close modal
+                }}
             />
         </>
     );
