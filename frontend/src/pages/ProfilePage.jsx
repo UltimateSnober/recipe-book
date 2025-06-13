@@ -5,7 +5,6 @@ import ProfileHeader from '../components/ProfileHeader';
 import ProfilePersonalInfo from '../components/ProfilePersonalInfo';
 import ProfileSettings from '../components/ProfileSettings';
 import MobileSideBar from '../components/MobileSideBar';
-import BackButton from '../components/BackButton';
 import { ChevronLeft } from 'lucide-react';
 
 // Sample user data - in a real application, this would come from your authentication system
@@ -76,14 +75,6 @@ export default function ProfilePage({ onNavigate }) {
                     </button>
                     <h1 className="text-xl font-bold text-gray-800">الملف الشخصي</h1>
                     <div className="w-10"></div> {/* Placeholder for alignment */}
-                </div>
-
-                {/* Back Button - Desktop */}
-                <div className="hidden md:block mb-6">
-                    <BackButton
-                        onClick={() => onNavigate('dashboard')}
-                        label="العودة إلى لوحة التحكم"
-                    />
                 </div>
 
                 {/* Profile Header */}
