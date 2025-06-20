@@ -25,6 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, blank=False, null=False)
     phone_number = PhoneNumberField(unique=True, null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -53,6 +54,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_date_joined(self):
         return self.date_joined
+
+    def get_location(self):
+        return self.location
 
     def get_is_active(self):
         return self.is_active
