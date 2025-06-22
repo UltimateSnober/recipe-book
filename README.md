@@ -1,6 +1,5 @@
 # Algerian Recipe Book
 
-![Recipe Book Platform](https://via.placeholder.com/800x400?text=Algerian+Recipe+Book)
 
 A bilingual web application for managing and sharing traditional Algerian recipes, with full Arabic (RTL) language support.
 
